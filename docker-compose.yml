@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -11,10 +11,11 @@ services:
     #   POSTGRES_HOST_AUTH_METHOD: trust
   web:
     build: .
-    command: manage.py runserver 0.0.0.0:9000
+    # command: python3 manage.py runserver 0.0.0.0:9000
     volumes:
-      - ./code:/code
+      - ./code:/home/docker/code
     ports:
       - "9000:9000"
+      - "9022:22"
     depends_on:
       - db
