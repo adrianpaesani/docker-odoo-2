@@ -36,12 +36,6 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-# change to docker user
-# Setup default user, when enter docker container
-# USER ${UID}:${GID}
-# WORKDIR /home/${USER}
-
-
 # # install Django requirements
 WORKDIR /home/docker
 COPY requirements.txt ./
