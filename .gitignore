@@ -4,6 +4,7 @@ _build/
 .DS_Store
 
 # compiled python files
+__pycache__/
 *.py[co]
 
 # setup.py egg_info
