@@ -12,7 +12,7 @@ services:
     build: .
     # command: python3 manage.py runserver 0.0.0.0:9000
     volumes:
-      - /home/ubuntu/docker_django/docker_django_postgresql/code:/home/docker/code
+      - /home/ubuntu/code/docker-django/code:/home/docker/code
     ports:
       - "9000:9000"
       - "9022:22"

@@ -44,7 +44,7 @@ RUN chmod -R 775 requirements.txt
 RUN pip3 install -r requirements.txt
 # COPY . /home/docker/code/
 
-RUN echo "cd /home/docker/code/docker-django/portfolio-project && python3 manage.py runserver 0.0.0.0:9000" >> /home/docker/.bashrc
+RUN echo "cd /home/docker/code/portfolio-project && python3 manage.py runserver 0.0.0.0:9000" >> /home/docker/.bashrc
 
 # ENTRYPOINT ["bash"]
 
