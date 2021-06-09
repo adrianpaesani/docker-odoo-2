@@ -1,20 +1,22 @@
 version: "3"
-
 services:
-  db:
-    image: postgres
+  # db:
+  #   image: postgres
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  odoo:
+    image: docker-odoo
+    container_name: docker-odoo
+    mem_limit: 2000000000
+    privileged: true
+    hostname: docker-odoo
+    # volumes:
+    #   # - /home/ubuntu/code/docker-django/code:/home/docker/code
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-  web:
-    build: .
-    # command: python3 manage.py runserver 0.0.0.0:9000
-    volumes:
-      - /home/ubuntu/code/docker-django/code:/home/docker/code
-    ports:
-      - "9000:9000"
-      - "9022:22"
-    depends_on:
-      - db
+      - "6169:6069"
+      - "6122:22"
+    # depends_on:
+    #   - db
