@@ -10,10 +10,18 @@
       > sudo docker build --no-cache -t docker-odoo
 
  2. SSH to docker odoo instance by `user/pwd` : `odoo/odoo`
-    1. > ssh -p 6122 odoo@localhost
+     > ssh -p 6122 odoo@localhost
 
+ 2. SSH to docker odoo instance by `user/pwd` : `odoo/odoo`
+     > ssh -p 6122 odoo@localhost
 
- 3. Folder struct:
+ 3. Grant access right for script file:
+     > cd /scripts && sudo chmod +x odoo_install.sh
+
+ 4. Run scripts to install Odoo and Odoo service
+     > sudo ./odoo_install.sh
+
+## Folder struct:
     ```
       │
       └───/var
@@ -36,10 +44,9 @@
            │
            └───/init.d
            │   │  odoo-server // service config
-
     ```
 
- 4. All command, you can use:
+## All command, you can use:
     ### POSTGRES
     * Start postgresql server:
       > sudo service postgresql start
