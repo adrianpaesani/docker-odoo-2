@@ -1,4 +1,6 @@
-# Docker Django
+# Docker Odoo
+   * Version  : 14.0
+   * OS       : Ubuntu 20.04TLS
 
 ## How to install
  1. Cd to git folder and run command bellow:
