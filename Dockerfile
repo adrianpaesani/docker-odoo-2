@@ -78,9 +78,32 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/s
 
 # create user for ssh and grant sudo for this user
 # Using unencrypted password/ specifying password
-RUN adduser --system --quiet --shell=/bin/bash --uid=${UID} --home=$OE_HOME --gecos 'ODOO' --group ${USER} \
+RUN adduser --system --quiet --shell=/bin/bash --uid=${UID} --home=${OE_HOME} --gecos 'ODOO' --group ${USER} \
   && echo "${USER}:${PW}" | \
   chpasswd && adduser ${USER} sudo && usermod -s /bin/bash ${USER}
+
+
+
+# Create Log directory
+RUN mkdir /var/log/${USER}
+RUN chown ${USER}:${USER} /var/log/${USER}
+
+
+# Create custom module directory
+RUN su ${USER} -c "mkdir ${OE_HOME}/custom"
+RUN su ${USER} -c "mkdir ${OE_HOME}/custom/addons"
+
+# Setting permissions on home folder
+RUN chown -R ${USER}:${USER} ${OE_HOME}/*
+
+
+##
+# WKHTMLTOPDF
+##
+
+ADD kwkhtmltopdf_client /usr/local/bin/wkhtmltopdf
+RUN chmod +x /usr/local/bin/wkhtmltopdf
+
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd

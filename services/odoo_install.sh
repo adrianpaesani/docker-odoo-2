@@ -66,7 +66,9 @@ sudo apt-get upgrade -y
 echo -e "\n---- Install PostgreSQL Server ----"
 sudo apt-get install postgresql postgresql-server-dev-all -y
 
-# !TODO ---> THIS LINE NOT WORKING, DEBUGGING....
+echo -e "\n---- Start postgresql service  ----"
+sudo su root -c "/etc/init.d/postgresql start"
+
 echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
 sudo su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
@@ -110,9 +112,9 @@ fi
 # #The user should also be added to the sudo'ers group.
 # sudo adduser $OE_USER sudo
 
-echo -e "\n---- Create Log directory ----"
-sudo mkdir /var/log/$OE_USER
-sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
+# echo -e "\n---- Create Log directory ----"
+# sudo mkdir /var/log/$OE_USER
+# sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
 # Install ODOO
@@ -146,9 +148,9 @@ if [ $IS_ENTERPRISE = "True" ]; then
     sudo npm install -g less-plugin-clean-css
 fi
 
-echo -e "\n---- Create custom module directory ----"
-sudo su $OE_USER -c "mkdir $OE_HOME/custom"
-sudo su $OE_USER -c "mkdir $OE_HOME/custom/addons"
+# echo -e "\n---- Create custom module directory ----"
+# sudo su $OE_USER -c "mkdir $OE_HOME/custom"
+# sudo su $OE_USER -c "mkdir $OE_HOME/custom/addons"
 
 echo -e "\n---- Setting permissions on home folder ----"
 sudo chown -R $OE_USER:$OE_USER $OE_HOME/*

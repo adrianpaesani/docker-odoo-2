@@ -13,8 +13,9 @@ services:
     mem_limit: 2000000000
     privileged: true
     hostname: docker-odoo
-    # volumes:
-    #   # - /home/ubuntu/code/docker-django/code:/home/docker/code
+    volumes:
+      # custom addon folder
+      - /home/ubuntu/code/custom/openeducat_erp/:/odoo/custom/addons
     ports:
       - "6169:6069"
       - "6122:22"
