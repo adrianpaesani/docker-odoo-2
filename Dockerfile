@@ -7,7 +7,8 @@ ARG USER=odoo
 ARG OE_HOME=/${USER}
 ARG UID=1000
 ARG GID=1000
-ENV DEBIAN_FRONTEND=noninteractive 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV USER_SHELL=/usr/bin/zsh
 
 ##
 # APT BOOTSTRAP
@@ -80,7 +81,7 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/s
 # Using unencrypted password/ specifying password
 RUN adduser --system --quiet --shell=/bin/bash --uid=${UID} --home=${OE_HOME} --gecos 'ODOO' --group ${USER} \
   && echo "${USER}:${PW}" | \
-  chpasswd && adduser ${USER} sudo && usermod -s /bin/bash ${USER}
+  chpasswd && adduser ${USER} sudo && usermod -s ${USER_SHELL:-/bin/bash} ${USER}
 
 
 
@@ -114,13 +115,18 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 # # create odoo folder
 # WORKDIR /home/odoo
 
-
 # copy and run servivecs
 RUN mkdir /scripts
 COPY /services/ /scripts
+
+# zshrc
+COPY config/zshrc /scripts/zshrc
+
+RUN chmod +x /scripts -R
 WORKDIR /scripts
-RUN chmod +x 01_ssh.sh
-ENTRYPOINT ./01_ssh.sh
+# RUN chmod +x main.sh
+ENTRYPOINT ./main.sh
+CMD ["zsh"]
 
 # EXPOSE 9000
 # EXPOSE 22
