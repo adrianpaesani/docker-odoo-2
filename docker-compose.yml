@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   # db:
   #   image: postgres
@@ -12,22 +12,12 @@ services:
     container_name: docker-odoo
     mem_limit: 2000000000
     privileged: true
+    restart: always
     hostname: docker-odoo
     volumes:
       # custom addon folder
       - /home/ubuntu/code/custom/openeducat_erp/:/odoo/custom/addons
     ports:
-      - "6169:6069"
-      - "6122:22"
-    # depends_on:
-    #   - db
-    links:
-      - wdb
-    environment:
-      WDB_SOCKET_SERVER: wdb
-      #WDB_NO_BROWSER_AUTO_OPEN: true
-  wdb:
-    image: kozea/wdb
-    init: true
-    ports:
-      - "6184:1984"
+      - "6169:6069" # Odoo
+      - "6155:5555" #debug
+      - "6122:22" # ssh
