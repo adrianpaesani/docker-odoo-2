@@ -81,7 +81,7 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/s
 # Using unencrypted password/ specifying password
 RUN adduser --system --quiet --shell=/bin/bash --uid=${UID} --home=${OE_HOME} --gecos 'ODOO' --group ${USER} \
   && echo "${USER}:${PW}" | \
-chpasswd && adduser ${USER} sudo && usermod -s ${USER_SHELL:-/bin/bash} ${USER}
+  chpasswd && adduser ${USER} sudo && usermod -s ${USER_SHELL:-/bin/bash} ${USER}
 
 
 
@@ -114,7 +114,6 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 # # create odoo folder
 # WORKDIR /home/odoo
-
 
 # copy and run servivecs
 RUN mkdir /scripts
