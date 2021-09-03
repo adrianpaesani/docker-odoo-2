@@ -15,7 +15,7 @@ services:
     hostname: docker-odoo
     volumes:
       # custom addon folder
-      - /home/ubuntu/code/custom/openeducat_erp/:/odoo/custom/addons
+      - /home/ubuntu/code/custom/openeducat_erp/:/home/odoo/custom/addons
     ports:
       - "6169:6069"
       - "6122:22"

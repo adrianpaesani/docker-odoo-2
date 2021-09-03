@@ -4,9 +4,10 @@ LABEL maintainer="lucpn@trobz.com"
 # Metadata
 ARG PW=odoo
 ARG USER=odoo
-ARG OE_HOME=/${USER}
+ARG OE_HOME=/home/${USER}
 ARG UID=1000
 ARG GID=1000
+ENV USER_SHELL=/usr/bin/zsh
 ENV DEBIAN_FRONTEND=noninteractive 
 
 ##
@@ -80,7 +81,7 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/s
 # Using unencrypted password/ specifying password
 RUN adduser --system --quiet --shell=/bin/bash --uid=${UID} --home=${OE_HOME} --gecos 'ODOO' --group ${USER} \
   && echo "${USER}:${PW}" | \
-  chpasswd && adduser ${USER} sudo && usermod -s /bin/bash ${USER}
+chpasswd && adduser ${USER} sudo && usermod -s ${USER_SHELL:-/bin/bash} ${USER}
 
 
 
@@ -118,9 +119,16 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 # copy and run servivecs
 RUN mkdir /scripts
 COPY /services/ /scripts
+COPY /devops /scripts/devops
+
+# zshrc
+COPY config/zshrc /scripts/zshrc
+
+RUN chmod +x /scripts -R
+
 WORKDIR /scripts
-RUN chmod +x 01_ssh.sh
-ENTRYPOINT ./01_ssh.sh
+ENTRYPOINT ./main.sh
+CMD ["zsh"]
 
 # EXPOSE 9000
 # EXPOSE 22

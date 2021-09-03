@@ -14,6 +14,7 @@ build-essential
 openssh-client
 lsof
 netcat
+zsh
 
 # odoo
 libxml2-dev
