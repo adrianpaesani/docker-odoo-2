@@ -17,7 +17,11 @@ services:
     volumes:
       # custom addon folder
       - /home/ubuntu/code/custom/openeducat_erp/:/home/odoo/custom/addons
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - "6169:6069" # Odoo
       - "6155:5555" #debug
       - "6122:22" # ssh
+volumes:
+  postgres-data:
+    external: false
